@@ -1,0 +1,19 @@
+version: "3"
+services:
+  web:
+    image: node:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./frontend:/app"
+    working_dir: "/app"
+    command: bash -c "npm i && npm start"
+  api:
+    image: ruby:2.6
+    ports:
+      - "4000:4000"
+    volumes:
+      - "./backend:/app"
+    working_dir: "/app"
+    command: bash -c "bundle install && rm -f tmp/pids/server.pid && bundle exec rails s -p 4000 -b '0.0.0.0'"
+
